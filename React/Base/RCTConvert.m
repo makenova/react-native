@@ -330,6 +330,12 @@ RCT_ENUM_CONVERTER(UIKeyboardType, (@{
   @"numeric": @(UIKeyboardTypeDecimalPad),
 }), UIKeyboardTypeDefault, integerValue)
 
+RCT_ENUM_CONVERTER(RCTReturnKeyAction, (@{
+  @"none": @(RCTReturnKeyActionNone),
+  @"insert-newline": @(RCTReturnKeyActionInsertNewLine),
+  @"blur": @(RCTReturnKeyActionBlur),
+}), RCTReturnKeyActionNone, integerValue)
+
 #if !TARGET_OS_TV
 RCT_MULTI_ENUM_CONVERTER(UIDataDetectorTypes, (@{
   @"phoneNumber": @(UIDataDetectorTypePhoneNumber),

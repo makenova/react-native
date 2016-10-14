@@ -9,6 +9,7 @@
 
 #import "RCTText.h"
 
+#import "RCTConvert.h"
 #import "RCTShadowText.h"
 #import "RCTUtils.h"
 #import "UIView+React.h"

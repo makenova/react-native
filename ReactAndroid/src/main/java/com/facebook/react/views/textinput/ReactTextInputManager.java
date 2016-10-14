@@ -259,9 +259,9 @@ public class ReactTextInputManager extends BaseViewManager<ReactEditText, Layout
     }
   }
 
-  @ReactProp(name = "blurOnSubmit", defaultBoolean = true)
-  public void setBlurOnSubmit(ReactEditText view, boolean blurOnSubmit) {
-    view.setBlurOnSubmit(blurOnSubmit);
+  @ReactProp(name = "returnKeyAction", defaultString = "default")
+  public void setReturnKeyAction(ReactEditText view, String returnKeyAction) {
+    view.setReturnKeyAction(returnKeyAction);
   }
 
   @ReactProp(name = "onContentSizeChange", defaultBoolean = false)
@@ -694,6 +694,7 @@ public class ReactTextInputManager extends BaseViewManager<ReactEditText, Layout
         new TextView.OnEditorActionListener() {
           @Override
           public boolean onEditorAction(TextView v, int actionId, KeyEvent keyEvent) {
+            String returnKeyAction = editText.getReturnKeyAction();
             // Any 'Enter' action will do
             if ((actionId & EditorInfo.IME_MASK_ACTION) > 0 ||
                 actionId == EditorInfo.IME_NULL) {
@@ -703,15 +704,14 @@ public class ReactTextInputManager extends BaseViewManager<ReactEditText, Layout
                   new ReactTextInputSubmitEditingEvent(
                       editText.getId(),
                       editText.getText().toString()));
-            }
-            if (actionId == EditorInfo.IME_ACTION_NEXT ||
-              actionId == EditorInfo.IME_ACTION_PREVIOUS) {
-              if (editText.getBlurOnSubmit()) {
+              if (returnKeyAction.equals("blur") ||
+                  (returnKeyAction.equals("default") && editText.isMultiline())) {
                 editText.clearFocus();
               }
-              return true;
             }
-            return !editText.getBlurOnSubmit();
+
+            boolean suppressReturn = !returnKeyAction.equals("insert-newline");
+            return suppressReturn;
           }
         });
   }

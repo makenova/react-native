@@ -20,6 +20,7 @@
 #import "RCTAnimationType.h"
 #import "RCTBorderStyle.h"
 #import "RCTTextDecorationLineType.h"
+#import "RCTReturnKeyAction"
 #import "RCTDefines.h"
 #import "RCTLog.h"
 #import "RCTPointerEvents.h"

@@ -287,6 +287,14 @@ const TextInput = React.createClass({
      */
     returnKeyLabel: PropTypes.string,
     /**
+     * Defaults to `blur` for single-line fields, and `insert-newline` for
+     * multiline. To get return key events, use `onKeyPress` and filter by
+     * `key === 'return'`.
+     *
+     * `insert-newline` will not work on single-line fields.
+     */
+    returnKeyAction: PropTypes.oneOf(['none', 'insert-newline', 'blur'],
+    /**
      * Limits the maximum number of characters that can be entered. Use this
      * instead of implementing the logic in JS to avoid flicker.
      */
@@ -433,14 +441,6 @@ const TextInput = React.createClass({
      * If `true`, all text will automatically be selected on focus.
      */
     selectTextOnFocus: PropTypes.bool,
-    /**
-     * If `true`, the text field will blur when submitted.
-     * The default value is true for single-line fields and false for
-     * multiline fields. Note that for multiline fields, setting `blurOnSubmit`
-     * to `true` means that pressing return will blur the field and trigger the
-     * `onSubmitEditing` event instead of inserting a newline into the field.
-     */
-    blurOnSubmit: PropTypes.bool,
     /**
      * [Styles](/react-native/docs/style.html)
      */

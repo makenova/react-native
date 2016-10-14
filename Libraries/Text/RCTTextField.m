@@ -34,7 +34,7 @@
     [self addTarget:self action:@selector(textFieldEndEditing) forControlEvents:UIControlEventEditingDidEnd];
     [self addTarget:self action:@selector(textFieldSubmitEditing) forControlEvents:UIControlEventEditingDidEndOnExit];
     [self addObserver:self forKeyPath:@"selectedTextRange" options:0 context:nil];
-    _blurOnSubmit = YES;
+    _returnKeyAction = RCTReturnKeyActionBlur;
   }
   return self;
 }
@@ -212,7 +212,7 @@ static void RCTUpdatePlaceholder(RCTTextField *self)
 {
   if (_submitted) {
     _submitted = NO;
-    return _blurOnSubmit;
+    return _returnKeyAction == RCTReturnKeyActionBlur;
   }
   return YES;
 }
