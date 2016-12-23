@@ -23,6 +23,7 @@
 var React = require('react');
 var ReactNative = require('react-native');
 var {
+  Button,
   NavigatorIOS,
   StatusBar,
   StyleSheet,
@@ -37,12 +38,31 @@ class EmptyPage extends React.Component {
         <Text style={styles.emptyPageText}>
           {this.props.text}
         </Text>
+        <Button
+          title="Toggle Bar Style"
+          color="#841584"
+          onPress={this.props.toggleBarStyle}
+        />
       </View>
     );
   }
 }
 
 class NavigatorIOSColors extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.toggleBarStyle = this.toggleBarStyle.bind(this);
+
+    this.state = { barStyle: 'black' };
+  }
+
+  toggleBarStyle() {
+    let newBarStyle = this.state.barStyle === 'default' ? 'black' : 'default';
+    console.log(newBarStyle)
+    this.setState({ barStyle: newBarStyle });
+  }
+
   static title = '<NavigatorIOS> - Custom Bar Style';
   static description = 'iOS navigation with custom nav bar colors';
 
@@ -56,16 +76,21 @@ class NavigatorIOSColors extends React.Component {
         initialRoute={{
           component: EmptyPage,
           title: '<NavigatorIOS>',
-          rightButtonTitle: 'Done',
+          rightButtonTitle: 'Toggle',
+          leftButtonTitle: 'Done',
           onRightButtonPress: () => {
+            this.toggleBarStyle();
+          },
+          onLeftButtonPress: () => {
             StatusBar.setBarStyle('default');
             this.props.onExampleExit();
           },
           passProps: {
-            text: 'The nav bar is black with barStyle prop.',
+            text: `The barStyle is ${this.state.barStyle}`,
+            toggleBarStyle: this.toggleBarStyle,
           },
         }}
-        barStyle="black"
+        barStyle={this.state.barStyle}
       />
     );
   }
